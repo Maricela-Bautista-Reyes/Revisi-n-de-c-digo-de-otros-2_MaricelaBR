@@ -1,32 +1,31 @@
-var formulario = document.querySelector("#form")
+var formulario = document.querySelector(".formulario") //se corrige el selector de clase
 
 formulario.onsubmit = function(e) {
 
-  e.prevent();
+  e.preventDefault(); //Se corrige de prevent a preventDefault
+  // Obtener los elementos del formulario
+  var n = formulario.elements["name"];
+  var e = formulario.elements["age"];
+  var na = formulario.elements["nationality"];
   
-  var n = formulario.elements[0]
-  var e = formulario.elements[1]
-  var na = formulario.elements[2]
+   // Obtener los valores de los elementos
+  var nombre = n.value;
+  var edad = e.value;
+  var i = na.selectedIndex;
+  var nacionalidad = na.options[i].value;
 
-  var nombre = n.value
-  var edad = e.value
-
-  var i = na.selectedIndex
-  var nacionalidad = na.options[i].value
   console.log(nombre, edad)
   console.log(nacionalidad)
-
+  // Validar el nombre y la edad
   if (nombre.length === 0) {
-    n.classList.add("error")
+    n.classList.add("error");
   }
   if (edad < 18 || edad > 120) {
-    e.classList.add("error")
+    e.classList.add("error");
   }
 
-if (nombre.length > 0 
-  && (edad > 18 
-    && edad < 120) ) {
-  agregarInvitado(nombre, edad, nacionalidad)
+if (nombre.length > 0 && (edad > 18 && edad < 120) ) {
+  agregarInvitado(nombre, edad, nacionalidad);
   }
 }
 
@@ -37,50 +36,36 @@ var corteLinea = document.createElement("br")
 document.body.appendChild(corteLinea)
 document.body.appendChild(botonBorrar);
 
+// Función para agregar un invitado a la lista
 function agregarInvitado(nombre, edad, nacionalidad) {
+  var nacionalidades = {
+    "ar": "Argentina",
+    "mx": "Mexicana",
+    "vnzl": "Venezolana",
+    "per": "Peruana"
+  };
+  nacionalidad = nacionalidades[nacionalidad];
 
-  if (nacionalidad === "ar") {
-    nacionalidad = "Argentina"
+  var lista = document.getElementById("lista-de-invitados");
+
+  var elementoLista = document.createElement("div");
+  elementoLista.classList.add("elemento-lista");
+  lista.appendChild(elementoLista);
+
+  function crearElemento(descripcion, valor) {
+    var spanNombre = document.createElement("span");
+    var inputNombre = document.createElement("input");
+    var espacio = document.createElement("br");
+    spanNombre.textContent = descripcion + ": ";
+    inputNombre.value = valor;
+    elementoLista.appendChild(spanNombre);
+    elementoLista.appendChild(inputNombre);
+    elementoLista.appendChild(espacio);
   }
-  else if (nacionalidad === "mx") {
-    nacionalidad = "Mexicana"
-  }
-  else if (nacionalidad === "vnzl") {
-    nacionalidad = "Venezolana"
-  }
-  else if (nacionalidad === "per") {
-    nacionalidad = "Peruana"
-  }
 
-var lista = document.getElementById("lista-de-invitados")
-
-var elementoLista = document.createElement("div")
-elementoLista.classList.added("elemento-lista")
-lista.appendChild(elementoLista)
-
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = "Nombre: "
-inputNombre.value = nombre 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
-
-function crearElemento(descripcion, valor) {
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = descripcion + ": "
-inputNombre.value = valor 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
-}
-
-crearElemento("Nombre", nombre)
-crearElemento("Edad", edad)
-crearElemento("Nacionalidad", nacionalidad)
+  crearElemento("Nombre", nombre);
+  crearElemento("Edad", edad);
+  crearElemento("Nacionalidad", nacionalidad);
 
 
 var botonBorrar = document.createElement("button")
