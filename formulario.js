@@ -1,7 +1,8 @@
 var formulario = document.querySelector(".formulario") //se corrige el selector de clase
 
 formulario.onsubmit = function(e) {
-
+// se da estructura al cidigo
+// Se añaden putos y comas faltantes en el codigo
   e.preventDefault(); //Se corrige de prevent a preventDefault
   // Obtener los elementos del formulario
   var n = formulario.elements["name"];
@@ -14,8 +15,8 @@ formulario.onsubmit = function(e) {
   var i = na.selectedIndex;
   var nacionalidad = na.options[i].value;
 
-  console.log(nombre, edad)
-  console.log(nacionalidad)
+  console.log(nombre, edad);
+  console.log(nacionalidad);
   // Validar el nombre y la edad
   if (nombre.length === 0) {
     n.classList.add("error");
@@ -37,6 +38,7 @@ document.body.appendChild(corteLinea)
 document.body.appendChild(botonBorrar);
 
 // Función para agregar un invitado a la lista
+//Se refactoriza la función agregar invitado
 function agregarInvitado(nombre, edad, nacionalidad) {
   var nacionalidades = {
     "ar": "Argentina",
